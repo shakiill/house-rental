@@ -1,4 +1,4 @@
-Dream Garden Real Estate Company
+House rental management system
 ---
 1. Clone Project from github
 2. Create virtualenv
@@ -30,19 +30,4 @@ Dream Garden Real Estate Company
 9. Start Server
     ```sh
     $ python manage.py runserver
-    ```
-
-10. Run Celery for the background tasks
-    ```sh
-    $ celery -A real_estate_erp worker -l info -P threads  
-    $ celery -A real_estate_erp beat -l info
-
-    $ stripe listen --forward-to http://localhost:8000/api/v1/webhooks/stripe/
-    ```
-
-11. Stripe Webhook CLI Commands
-    ```sh
-    $ stripe login
-
-    $ stripe listen --forward-to http://localhost:8000/api/v1/webhooks/stripe/
     ```

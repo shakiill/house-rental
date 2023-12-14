@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'apps.customer',
     'apps.owner',
     'apps.house',
+    'apps.location',
 
 ]
 

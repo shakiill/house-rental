@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path, re_path, include
 from . import views
 
 urlpatterns = [
-    path('dashboard/', login_required(TemplateView.as_view(template_name="home.html")), name='dashboard'),
+    path('dashboard/', login_required(views.DashboardView.as_view()), name='dashboard'),
+    path('', views.HomeView.as_view(), name='home'),
 ]
