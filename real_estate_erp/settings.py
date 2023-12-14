@@ -68,6 +68,9 @@ INSTALLED_APPS = [
 
     # my apps
     'apps.user',
+    'apps.customer',
+    'apps.owner',
+    'apps.house',
 
 ]
 
@@ -198,7 +201,7 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 LOGIN_URL = 'account_login'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'account_login'
 
 AUTH_USER_MODEL = 'user.CustomUser'

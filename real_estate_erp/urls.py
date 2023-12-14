@@ -21,8 +21,10 @@ from django.conf import settings
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('', login_required(TemplateView.as_view(template_name="home.html")), name='home'),
     path('account/', include('apps.user.urls')),
+    path('customer/', include('apps.customer.urls')),
+    path('', include('apps.house.urls')),
+    path('house-owner/', include('apps.owner.urls')),
 ]
 
 if settings.DEBUG:
