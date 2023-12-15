@@ -1,8 +1,10 @@
-from django.urls import path, re_path, include
-from allauth.account import views as auth_views
-from allauth import app_settings
-from allauth.socialaccount import providers
 from importlib import import_module
+
+from allauth import app_settings
+from allauth.account import views as auth_views
+from allauth.socialaccount import providers
+from django.urls import path, re_path, include
+
 from . import views
 
 urlpatterns = [

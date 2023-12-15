@@ -1,6 +1,6 @@
 from allauth.account.forms import LoginForm, ChangePasswordForm, ResetPasswordForm, ResetPasswordKeyForm, SignupForm
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, HTML
+from crispy_forms.layout import Layout, Submit, Row, Column, HTML, Field
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
@@ -191,7 +191,7 @@ class CustomChangePasswordForm(ChangePasswordForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('email', 'name')
+        fields = ('photo', 'email', 'name', 'phone', 'f_name', 'm_name', 'occupation', 'dob', 'nid', 'address')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -207,8 +207,20 @@ class ProfileUpdateForm(forms.ModelForm):
         # self.helper.form_show_labels = False
         self.helper.layout = Layout(
             Row(
+                Column(
+                    Field('photo', template='layout/fields/image_thumbnail.html')
+                )
+            ),
+            Row(
                 Column('name', css_class='form-group col-md-6 mb-0'),
                 Column('email', css_class='form-group col-md-6 mb-0'),
+                Column('phone', css_class='form-group col-md-6 mb-0'),
+                Column('dob', css_class='form-group col-md-6 mb-0'),
+                Column('nid', css_class='form-group col-md-6 mb-0'),
+                Column('f_name', css_class='form-group col-md-6 mb-0'),
+                Column('m_name', css_class='form-group col-md-6 mb-0'),
+                Column('occupation', css_class='form-group col-md-6 mb-0'),
+                Column('address', css_class='form-group col-md-6 mb-0'),
             ),
 
             Row(

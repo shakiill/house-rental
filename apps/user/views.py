@@ -21,7 +21,7 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = ProfileUpdateForm
     template_name = 'account/add.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard')
     success_message = "Profile was updated successfully"
 
     def get_object(self, queryset=None):
