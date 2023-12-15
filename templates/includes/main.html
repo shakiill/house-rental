@@ -141,7 +141,6 @@
 </head>
 <!--end::Head-->
 <!--begin::Body-->
-{% if request.user.is_staff or request.user.is_staff %}
 <body id="kt_body"
       class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed page-loading">
 <!--begin::Main-->
@@ -367,12 +366,6 @@
                 <!--end::Svg Icon-->
 			</span>
 </div>
-{% else %}
-    <div class="dib" style=";width: 100%;height: 100%;margin: auto">
-        <h2>Wrong type user</h2>
-        <a href="/account/logout/" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
-    </div>
-{% endif %}
 
 
 

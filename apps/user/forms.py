@@ -1,15 +1,14 @@
 from allauth.account.forms import LoginForm, ChangePasswordForm, ResetPasswordForm, ResetPasswordKeyForm, SignupForm
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, HTML, Field, Div
+from crispy_forms.layout import Layout, Submit, Row, Column, HTML
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
 from django.urls import reverse_lazy
-from django import forms
-
-from apps.user.models import Customer, CustomUser
 
 User = get_user_model()
+
 
 # class StaffCreateForm(forms.ModelForm):
 #     class Meta:
@@ -44,8 +43,7 @@ User = get_user_model()
 
 class CustomSignupForm(SignupForm):
     name = forms.CharField(max_length=100, label='Name')
-
-    # role = forms.ModelChoiceField(queryset=Group.objects.all())
+    role = forms.ModelChoiceField(queryset=Group.objects.all())
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,7 +56,7 @@ class CustomSignupForm(SignupForm):
         self.helper.layout = Layout(
             Row(
                 Column('name', css_class='form-group col-md-6 mb-0'),
-                # Column('role', css_class='form-group col-md-6 mb-0'),
+                Column('role', css_class='form-group col-md-6 mb-0'),
             ),
             Row(
                 Column('username', css_class='form-group col-md-6 mb-0'),
@@ -77,7 +75,7 @@ class CustomSignupForm(SignupForm):
 
     def custom_signup(self, request, user):
         user.name = self.cleaned_data['name']
-        # user.groups.add(self.cleaned_data['role'])
+        user.groups.add(self.cleaned_data['role'])
         user.save()
 
 

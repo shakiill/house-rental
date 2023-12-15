@@ -24,7 +24,7 @@ urlpatterns = [
          name="account_reset_password_from_key_done"),
     path('update/', views.ProfileUpdateView.as_view(), name='profile_update'),
     path('details/', views.ProfileDetailView.as_view(), name='profile_detail'),
-    # path('registration/', views.RegistrationWizardView.as_view(), name='account_signup')
+    path('registration/', views.RegistrationWizardView.as_view(), name='account_signup'),
     # dashboard user
     path('user/', views.UserListView.as_view(), name='user_list'),
     path('user/add/', views.UserCreateView.as_view(), name='user_add'),

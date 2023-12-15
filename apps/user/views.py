@@ -1,19 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.storage import DefaultStorage
-from django.shortcuts import render, redirect, _get_queryset
-from django.contrib.auth import get_user_model
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, DetailView, FormView, CreateView, ListView, DeleteView
-from django_filters.views import FilterView
+from django.views.generic import UpdateView, DetailView, FormView, ListView, DeleteView
 from formtools.wizard.views import SessionWizardView
 
 from .forms import (ProfileUpdateForm,
-                    CustomUserCreationForm,
                     CustomProfileCreateForm, CustomSignupForm
                     )
-from .models import Customer, CustomUser
-from ..helpers.views import PageHeaderMixin, CustomSingleTableMixin, PageHeaderNoPerMixin
+from .models import CustomUser
 
 # Create your views here.
 
@@ -104,12 +101,12 @@ class UserListView(LoginRequiredMixin, ListView):
     ordering = '-id'
 
 
-class UserCreateView(LoginRequiredMixin, FormView):
+class UserCreateView(FormView):
     # permission_required = 'configuration.add_unit'
     model = User
     form_class = CustomSignupForm
-    success_url = reverse_lazy('user_list')
-    template_name = 'add.html'
+    success_url = reverse_lazy('account_login')
+    template_name = 'account/signup.html'
 
     def form_valid(self, form):
         self.user = form.save(self.request)
