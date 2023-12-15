@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import socket
 from datetime import timedelta
 from pathlib import Path
+
 import dj_database_url
-import socket
 from decouple import config, Csv
 from django.contrib.messages import constants as messages
 
@@ -203,7 +204,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'dashboard'
-LOGOUT_REDIRECT_URL = 'account_login'
+LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
