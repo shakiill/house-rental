@@ -3,15 +3,14 @@ import hashlib
 import os
 import uuid
 
-from decouple import config
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, Group
-from django.core.mail import EmailMessage
 from django.db import models
-from django.db.models import Q
+from django.db.models import SET_NULL
 from django.template.loader import render_to_string
 from django.utils.crypto import get_random_string
 
+from apps.location.models import UnionOrWard, Division, District, UpazilaOrThana
 from apps.user.managers import StaffManager, CustomerManager, HouseOwnerManager
 
 
@@ -24,6 +23,10 @@ class CustomUser(AbstractUser):
     first_name = None
     email = models.EmailField(verbose_name='Email Address', unique=True)
     name = models.CharField(verbose_name='Full Name', max_length=100)
+    f_name = models.CharField(verbose_name='Fathers Name', max_length=100, null=True, blank=True)
+    m_name = models.CharField(verbose_name='Mothers Name', max_length=100, null=True, blank=True)
+    occupation = models.CharField(verbose_name='Occupation', max_length=100, null=True, blank=True)
+
     photo = models.ImageField(upload_to='user_photo', null=True, blank=True)
     cover_photo = models.ImageField(upload_to='user_photo', null=True, blank=True)
     signature = models.ImageField(upload_to='signature', null=True, blank=True)
@@ -32,6 +35,17 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
+    phone = models.CharField(max_length=30, null=True, blank=True)
+    nid = models.CharField(max_length=30, null=True, blank=True)
+    dob = models.DateField(verbose_name='Date of Birth', null=True, blank=True)
+    # present address
+    division = models.ForeignKey(Division, on_delete=SET_NULL, null=True, blank=True, related_name='user_div')
+    district = models.ForeignKey(District, on_delete=SET_NULL, null=True, blank=True, related_name='user_dis')
+    thana = models.ForeignKey(UpazilaOrThana, on_delete=SET_NULL, null=True, blank=True, related_name='user_thana')
+    union = models.ForeignKey(UnionOrWard, on_delete=SET_NULL, null=True, blank=True, related_name='user_union')
+    address = models.TextField(null=True, blank=True)
+
+    # permanent address
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
@@ -73,7 +87,6 @@ class Customer(CustomUser):
         self.username = self.email
         self.is_active = False
         self.groups.set([group])
-
 
 
 class HouseOwner(CustomUser):
