@@ -20,8 +20,7 @@ from ..helpers.views import PageHeaderMixin, CustomSingleTableMixin, PageHeaderN
 User = get_user_model()
 
 
-class ProfileUpdateView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'user.change_user'
+class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = ProfileUpdateForm
     template_name = 'account/add.html'

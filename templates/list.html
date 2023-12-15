@@ -21,7 +21,20 @@
                             {% include 'includes/filter.html' %}
                         {% endif %}
                         <div class="table-responsive">
-                            {% render_table table %}
+                            <table class="table-responsive table-bordered">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                </tr>
+                                {% for u in object_list %}
+                                    <tr>
+                                        <td>{{ u.username }}</td>
+                                        <td>{{ u.email }}</td>
+                                        <td>{{ u.name }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>
