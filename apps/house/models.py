@@ -30,6 +30,8 @@ class Apartment(TimeStamp):
 
     address = models.CharField(max_length=255)
     rent = models.PositiveIntegerField(default=0)
+    is_rent_complete = models.BooleanField(default=False)
+
     # def save(self, *args, **kwargs):
     #     if not self.slug:
     #         self.slug = slugify(self.title)

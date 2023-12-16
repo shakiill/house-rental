@@ -1,15 +1,15 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, HTML
+from crispy_forms.layout import Layout, Submit, Row, Column
 from django import forms
 
 from apps.house.models import Apartment
 
 
-class ApartmentForm(forms.ModelForm):
+class MyApartmentForm(forms.ModelForm):
     class Meta:
         model = Apartment
         fields = ['title', 'description', 'room', 'area', 'floor', 'parking', 'lift', 'stair', 'thumbnail',
-                  'division', 'district', 'thana', 'union', 'address', 'image_1', 'image_2', 'image_3', 'rent', 'owner',
+                  'division', 'district', 'thana', 'union', 'address', 'image_1', 'image_2', 'image_3', 'rent',
                   'is_rent_complete']
 
     def __init__(self, *args, **kwargs):
@@ -28,10 +28,7 @@ class ApartmentForm(forms.ModelForm):
                 Column('area', css_class='form-group col-md-2 mb-0'),
                 Column('floor', css_class='form-group col-md-2 mb-0'),
                 Column('room', css_class='form-group col-md-2 mb-0'),
-            ),
-            Row(
-                Column('owner', css_class='form-group col-md-6 mb-0'),
-                Column('is_rent_complete', css_class='form-group col-md-6 mb-0'),
+                Column('is_rent_complete', css_class='form-group col-md-2 mb-0'),
             ),
             Row(
                 Column('division', css_class='form-group col-md-3 mb-0'),
@@ -61,27 +58,4 @@ class ApartmentForm(forms.ModelForm):
                     Submit('submit', 'Create Projects')
                 )
             )
-        )
-
-
-class ApartmentFiltersForm(forms.Form):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.helper = FormHelper()
-        self.helper.form_method = 'get'
-        self.helper.layout = Layout(
-            Row(
-                Column('room', css_class='form-group col-md-1 mb-0'),
-                Column('floor', css_class='form-group col-md-1 mb-0'),
-                Column('parking', css_class='form-group col-md-1 mb-0'),
-                Column('lift', css_class='form-group col-md-1 mb-0'),
-                Column('district', css_class='form-group col-md-1 mb-0'),
-                Column('thana', css_class='form-group col-md-1 mb-0'),
-                Column('union', css_class='form-group col-md-1 mb-0'),
-                Column('rent', css_class='form-group col-md-2 mb-0'),
-                Column(HTML("""<button class="btn btn-lg btn-primary">Filter</button>"""),
-                       css_class='form-group col-md-1 p-5 mb-0'),
-            ),
         )
