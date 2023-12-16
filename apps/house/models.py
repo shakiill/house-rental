@@ -3,11 +3,13 @@ from django.db.models import SET_NULL
 
 from apps.helpers.models import TimeStamp
 from apps.location.models import Division, District, UpazilaOrThana, UnionOrWard
+from apps.user.models import HouseOwner
 
 
 # Create your models here.
-class Projects(TimeStamp):
+class Apartment(TimeStamp):
     title = models.CharField(max_length=255)
+    owner = models.ForeignKey(HouseOwner, on_delete=models.CASCADE, null=True, blank=True, related_name='owner_house')
     description = models.TextField(blank=True)
     room = models.FloatField(default=0)
     area = models.PositiveIntegerField(default=0)
@@ -16,6 +18,9 @@ class Projects(TimeStamp):
     lift = models.BooleanField(default=True)
     stair = models.BooleanField(default=True)
     thumbnail = models.ImageField(upload_to='thumbnail', null=True, blank=True)
+    image_1 = models.ImageField(upload_to='thumbnail', null=True, blank=True)
+    image_2 = models.ImageField(upload_to='thumbnail', null=True, blank=True)
+    image_3 = models.ImageField(upload_to='thumbnail', null=True, blank=True)
 
     # present address
     division = models.ForeignKey(Division, on_delete=SET_NULL, null=True, blank=True)
@@ -23,8 +28,8 @@ class Projects(TimeStamp):
     thana = models.ForeignKey(UpazilaOrThana, on_delete=SET_NULL, null=True, blank=True)
     union = models.ForeignKey(UnionOrWard, on_delete=SET_NULL, null=True, blank=True)
 
-    address = models.TextField(blank=True, default='#')
-
+    address = models.CharField(max_length=255)
+    rent = models.PositiveIntegerField(default=0)
     # def save(self, *args, **kwargs):
     #     if not self.slug:
     #         self.slug = slugify(self.title)

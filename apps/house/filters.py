@@ -1,16 +1,16 @@
 import django_filters
-from django_filters.widgets import RangeWidget
 
-from apps.location.models import District
+from apps.house.forms import ApartmentFiltersForm
+from apps.house.models import Apartment
 
 
-class ProjectFilters(django_filters.FilterSet):
-    title = django_filters.CharFilter(method='project_filter')
+class ApartmentFilters(django_filters.FilterSet):
+    # title = django_filters.CharFilter(method='project_filter')
 
     class Meta:
-        model = Projects
-        fields = ['title', ]
-        form = ProjectFiltersForm
+        model = Apartment
+        fields = ['rent', 'room', 'floor', 'parking', 'lift', 'district', 'thana', 'union', ]
+        form = ApartmentFiltersForm
 
-    def project_filter(self, queryset, title, value):
-        return queryset.filter(title__icontains=value)
+    # def project_filter(self, queryset, title, value):
+    #     return queryset.filter(title__icontains=value)
