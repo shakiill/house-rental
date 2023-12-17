@@ -57,4 +57,4 @@ class PublicApartmentListView(FilterView):
     filterset_class = ApartmentFilters
     paginate_by = 20
     ordering = '-created_at'
-    template_name = 'all_apartments.html'
+    template_name = 'properties.html'

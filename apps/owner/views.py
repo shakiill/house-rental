@@ -14,8 +14,7 @@ class MyApartmentListView(ListView):
     template_name = 'my_apartments.html'
 
     def get_queryset(self):
-        qs = self.queryset
-        qs = qs.filter(owner=self.request.user)
+        qs = self.model.objects.filter(owner=self.request.user)
         return qs
 
 

@@ -14,6 +14,7 @@ urlpatterns = [
          name='apartment_delete'),
     # public
     path('', views.HomeView.as_view(), name='home'),
-    path('apartment/', views.PublicApartmentListView.as_view(), name='apartments'),
+    path('all-properties/', views.PublicApartmentListView.as_view(), name='apartments'),
+    # path('apartment/<int:pk>/details/', views.PublicApartmentListView.as_view(), name='apartments'),
 
 ]
