@@ -32,10 +32,9 @@ class Apartment(TimeStamp):
     rent = models.PositiveIntegerField(default=0)
     is_rent_complete = models.BooleanField(default=False)
 
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.title)
-    #     super().save(*args, **kwargs)
+    def no_of_app(self):
+        t = self.apartment_booking.count()
+        return t if t else 0
 
     def __str__(self):
         return self.title

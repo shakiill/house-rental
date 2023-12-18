@@ -36,7 +36,7 @@
                                             <td>{{ object.area }} (ft2)</td>
                                             <td>{{ object.room }}</td>
                                             <td>{{ object.is_rent_complete|yesno }}</td>
-                                            <td>0</td>
+                                            <td>{{ object.no_of_app }}</td>
                                             <td>{{ object.address }}</td>
                                             <td class="text-center">
                                                 <a href="{% url 'my_apartment_update' object.pk %}"

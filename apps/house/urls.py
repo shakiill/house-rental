@@ -12,6 +12,7 @@ urlpatterns = [
          name='apartment_update'),
     path('dashboard/apartment/<int:pk>/delete/', login_required(views.ApartmentDeleteView.as_view()),
          name='apartment_delete'),
+
     # public
     path('', views.HomeView.as_view(), name='home'),
     path('all-properties/', views.PublicApartmentListView.as_view(), name='apartments'),

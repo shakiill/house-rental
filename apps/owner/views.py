@@ -1,6 +1,6 @@
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView, UpdateView, CreateView
+from django.views.generic import ListView, DeleteView, UpdateView, CreateView, DetailView
 
 from apps.helpers.views import PageHeaderMixin
 from apps.house.models import Apartment
@@ -16,6 +16,15 @@ class MyApartmentListView(ListView):
     def get_queryset(self):
         qs = self.model.objects.filter(owner=self.request.user)
         return qs
+
+
+# class MyApartmentView(DetailView):
+#     model = Apartment
+#     template_name = 'my_apartments.html'
+#
+#     def get_queryset(self):
+#         qs = self.model.objects.filter(owner=self.request.user)
+#         return qs
 
 
 class MyApartmentCreateView(CreateView):
