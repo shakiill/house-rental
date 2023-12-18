@@ -1,29 +1,36 @@
 House rental management system
 ---
-1. Clone Project from github
-2. Create virtualenv
+1. Open terminal and Clone Project from github
+   ```sh
+      git clone https://github.com/shakiill/house-rental.git
+   ```
+2. Enter project directory
+      ```sh
+    cd house-rental
+    ```
+3. Create virtualenv
       ```sh
     $ virtualenv venv
     ```
-3. Activate Virtualenv
+4. Activate Virtualenv
    ```sh
     $ source venv/Scripts/activate
     ```
-4. Install Requirements
+5. Install Requirements
    ```sh
     $ pip install -r requirements.txt
     ```
+6. Add project specific information in .env
 
-5. Add project specific information in .env
-6. Make migration
+7. Make migration
     ```sh
     $ python manage.py makemigrations
     ```
-7. Migrate
+8. Migrate
     ```sh
     $ python manage.py migrate
     ```
-8. Create Superuser
+9. Create Superuser
     ```sh
     $ python manage.py createsuperuser
     ```
