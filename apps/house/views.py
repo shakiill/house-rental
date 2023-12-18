@@ -59,7 +59,7 @@ class SuccessView(TemplateView):
 class PublicApartmentListView(FilterView):
     model = Apartment
     filterset_class = ApartmentFilters
-    paginate_by = 20
+    paginate_by = 10
     ordering = '-created_at'
     template_name = 'properties.html'
 
