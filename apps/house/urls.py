@@ -15,6 +15,8 @@ urlpatterns = [
     # public
     path('', views.HomeView.as_view(), name='home'),
     path('all-properties/', views.PublicApartmentListView.as_view(), name='apartments'),
-    # path('apartment/<int:pk>/details/', views.PublicApartmentListView.as_view(), name='apartments'),
+    path('contacts/', views.ContactView.as_view(), name='contacts'),
+
+    path('apartment/<int:pk>/details/', views.PublicApartmentView.as_view(), name='single_apartments'),
 
 ]

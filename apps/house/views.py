@@ -1,11 +1,11 @@
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView
 from django_filters.views import FilterView
 
 from apps.helpers.views import PageHeaderMixin
 from apps.house.filters import ApartmentFilters
-from apps.house.forms import ApartmentForm
-from apps.house.models import Apartment
+from apps.house.forms import ApartmentForm, ContactForm
+from apps.house.models import Apartment, Contact
 
 
 # Create your views here.
@@ -52,9 +52,26 @@ class HomeView(TemplateView):
     template_name = 'index.html'
 
 
+class SuccessView(TemplateView):
+    template_name = 'success.html'
+
+
 class PublicApartmentListView(FilterView):
     model = Apartment
     filterset_class = ApartmentFilters
     paginate_by = 20
     ordering = '-created_at'
     template_name = 'properties.html'
+
+
+class PublicApartmentView(DetailView):
+    model = Apartment
+    template_name = 'single_property.html'
+
+
+class ContactView(CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = 'contact.html'
+    success_message = "Contact successfully submitted."
+    success_url = reverse_lazy('home')

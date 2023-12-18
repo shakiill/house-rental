@@ -39,3 +39,14 @@ class Apartment(TimeStamp):
 
     def __str__(self):
         return self.title
+
+
+# Create your models here.
+class Contact(TimeStamp):
+    name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.name
