@@ -1,30 +1,61 @@
+{% extends 'front.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
+{% block content %}
+    <section class="filter-section">
+        <div class="container">
+            <div class="row">
+                <div class="card-body">
+                    {% crispy filter.form %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="list-section">
+        <div class="container">
+            {% if object_list %}
+                {% for item in object_list %}
+                    <div class="single-list" style="margin-bottom: 2px">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img style="width: 100%; max-height: 250px" src="{{ item.thumbnail.url }}" alt="gdgd">
+                            </div>
+                            <div class="col-md-6">
+                                <h2>{{ item.title }}</h2>
+                                <ul>
+                                    <li>Area: {{ item.area }}</li>
+                                    <li>Room: {{ item.room }} sqft</li>
+                                    <li>Floor: {{ item.floor }}</li>
+                                    <li>Lift: {{ item.lift|yesno }}</li>
+                                    <li>Parking: {{ item.parking|yesno }}</li>
+                                    <li>Rent: {{ item.rent }} BDT</li>
+                                    <li>Location: {{ item.address }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <a class="btn btn-instagram mt-30"
+                                   href="{% url 'single_apartments' item.pk %}">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col">
+                        {% include 'includes/pagination.html' %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col">
+                        {% include 'includes/no_data_found.html' %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
 
-<html lang="en">
-<!--begin::Head-->
-<head>
-    <base href="">
-    <meta charset="utf-8"/>
-    <title> House Rent | Find the best apartment for you </title>
-    <meta name="description" content="Updates and statistics"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link rel="canonical" href=""/>
-    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}"/>
-    <!--begin::Fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
-    <!--end::Fonts-->
-    <!--begin::Page Vendors Styles(used by this page)-->
-    <!--end::Page Vendors Styles-->
-    <!--begin::Global Theme Styles(used by all pages)-->
-    <link href="{% static 'plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'plugins/quill/quill.snow.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css"></script>
-    <link href="{% static 'plugins/django_select2/django_select2.css' %}" rel="stylesheet" type="text/css"/>
+    </section>
+{% endblock %}
+{% block css %}
     <style>
         .filter-section {
             background: url("{% static 'images/bg/bg-10.jpg' %}");
@@ -55,112 +86,8 @@
         .form-group label {
             color: #fff;
         }
+        .footer {
+            margin-top: 200px;
+        }
     </style>
-
-</head>
-<!--end::Head-->
-<!--begin::Body-->
-<body id="kt_body">
-
-{% include 'menu.html' %}
-
-<section class="filter-section">
-    <div class="container">
-        <div class="row">
-            <div class="card-body">
-                {% crispy filter.form %}
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="list-section">
-    <div class="container">
-        {% if object_list %}
-            {% for item in object_list %}
-                <div class="single-list" style="margin-bottom: 2px">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <img style="width: 100%; max-height: 250px" src="{{ item.thumbnail.url }}" alt="gdgd">
-                        </div>
-                        <div class="col-md-6">
-                            <h2>{{ item.title }}</h2>
-                            <ul>
-                                <li>Area: {{ item.area }}</li>
-                                <li>Room: {{ item.room }} sqft</li>
-                                <li>Floor: {{ item.floor }}</li>
-                                <li>Lift: {{ item.lift|yesno }}</li>
-                                <li>Parking: {{ item.parking|yesno }}</li>
-                                <li>Rent: {{ item.rent }} BDT</li>
-                                <li>Location: {{ item.address }}</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <a class="btn btn-instagram mt-30" href="{% url 'single_apartments' item.pk %}">Details</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="row">
-                <div class="col">
-                    {% include 'includes/pagination.html' %}
-                </div>
-            </div>
-        {% else %}
-            <div class="row">
-                <div class="col">
-                    {% include 'includes/no_data_found.html' %}
-                </div>
-            </div>
-        {% endif %}
-    </div>
-
-</section>
-
-{% include 'footer.html' %}
-
-
-<!--begin::Global Theme Bundle(used by all pages)-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
-<script src="{% static 'plugins/global/toastr.js' %}"></script>
-<script src="{% static 'js/scripts.bundle.js' %}"></script>
-<script src="{% static 'plugins/quill/quill.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'plugins/quill/quill-textarea.js' %}" type="text/javascript"></script>
-<script src="{% static 'plugins/django_select2/django_select2.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/main.js' %}"></script>
-{#<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>#}
-{#<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>#}
-
-<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
-<script type="text/javascript"
-        src="https://www.jqueryscript.net/demo/performance-youtube-video-embed/jquery.embedVideo.js?v=1.1"></script>
-<script type="text/javascript">
-    function onYouTubeIframeAPIReady() {
-        $('.embed-video').embedVideo({
-            enablejsapi: 1,
-            callback: function (iframe) {
-                player = new YT.Player(iframe, {
-                    events: {
-                        'onReady': function () {
-                            if (!$(iframe).parent().data('autoplay')) {
-                                player.playVideo();
-                            }
-                        }
-                    }
-                });
-            }
-        });
-    }
-</script>
-
-{% if messages %}
-    <script>
-        {% for message in messages %}
-            toastr['{{ message.tags }}']("{{ message }}");
-        {% endfor %}
-    </script>
-{% endif %}
-
-</body>
-</html>
+{% endblock %}
