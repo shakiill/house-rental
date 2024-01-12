@@ -1,6 +1,8 @@
-from django.urls import path, re_path, include
+from django.contrib.auth.decorators import login_required
+from django.urls import path
+
 from . import views
 
 urlpatterns = [
-    # path("signup/", auth_views.signup, name="account_signup"),
+    path('applied/', login_required(views.MyApplyView.as_view()), name='my_apply'),
 ]

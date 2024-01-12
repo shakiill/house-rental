@@ -6,10 +6,10 @@
                 <div class="card card-custom gutter-b">
                     <div class="card-header">
                         <div class="card-title">
-                            <h3 class="card-label">My Properties:</h3>
+                            <h3 class="card-label">My Bookings:</h3>
                         </div>
                         <div class="card-toolbar">
-                            <a href="{% url 'my_apartment_add' %}" class="btn btn-info">Add New</a>
+                            <a href="{% url 'apartments' %}" class="btn btn-info">Browse</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -23,35 +23,18 @@
                                         <th>Area</th>
                                         <th>Room</th>
                                         <th>Status</th>
-                                        <th>No of Knock</th>
                                         <th>Location</th>
-                                        <th width="120px" class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for object in object_list %}
                                         <tr>
                                             <td class="text-center">{{ forloop.counter }}</td>
-                                            <td class="text-center">{{ object.title }}</td>
-                                            <td>{{ object.area }} (ft2)</td>
-                                            <td>{{ object.room }}</td>
+                                            <td class="text-center">{{ object.apartment.title }}</td>
+                                            <td>{{ object.apartment.area }} (ft2)</td>
+                                            <td>{{ object.apartment.room }}</td>
                                             <td>{{ object.is_rent_complete|yesno }}</td>
-                                            <td>{{ object.no_of_app }}</td>
-                                            <td>{{ object.address }}</td>
-                                            <td class="text-center">
-                                                <a href="{% url 'my_apartment_apply' object.pk %}"
-                                                   class="btn btn-sm btn-light-warning">
-                                                    <i class="flaticon-eye"></i>
-                                                </a>
-                                                <a href="{% url 'my_apartment_update' object.pk %}"
-                                                   class="btn btn-sm btn-light-warning">
-                                                    <i class="flaticon-edit"></i>
-                                                </a>
-                                                <a href="{% url 'my_apartment_delete' object.pk %}"
-                                                   class="btn btn-sm btn-light-danger"><i
-                                                        class="flaticon-delete"></i>
-                                                </a>
-                                            </td>
+                                            <td>{{ object.apartment.address }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
