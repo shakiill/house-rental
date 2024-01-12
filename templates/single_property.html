@@ -55,7 +55,15 @@
                         <li>Location: {{ object.address }}</li>
                     </ul>
                     <br>
-                    <a href="" class="btn btn-instagram">Book Now</a>
+                    {% if user.is_authenticated %}
+                        {% if status == True or status == 'status' %}
+                            <h4>Already Applied</h4>
+                        {% else %}
+                            <a onclick="submitForm()" class="btn btn-instagram">Book Now</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="btn btn-instagram">Book Now</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
@@ -68,7 +76,7 @@
 
 {% endblock %}
 {% block css %}
-  
+
     <style>
         .filter-section {
             background: url("{% static 'images/bg/bg-8.jpg' %}");
@@ -129,4 +137,34 @@
             {% endfor %}
         </script>
     {% endif %}
+    <script>
+        function submitForm() {
+            var data = {
+                'apartment': {{ object.pk }},
+            };
+            $.ajax({
+                type: "POST",
+                url: "/api/bookings/",
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                data: JSON.stringify(data),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function () {
+                    Swal.fire(
+                        'Entry successfully added',
+                        'You clicked the button!',
+                        'success'
+                    );
+                    window.location.reload()
+                    // window.location.href = '/sales/{{ object.pk }}/info/?tab=tab_2';
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest, textStatus, errorThrown);
+                    alert("some error " + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
+                }
+            });
+        }
+    </script>
 {% endblock %}

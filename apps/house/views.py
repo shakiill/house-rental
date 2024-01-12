@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView
 from django_filters.views import FilterView
 
+from apps.customer.models import Booking
 from apps.helpers.views import PageHeaderMixin
 from apps.house.filters import ApartmentFilters
 from apps.house.forms import ApartmentForm, ContactForm
@@ -67,6 +68,13 @@ class PublicApartmentListView(FilterView):
 class PublicApartmentView(DetailView):
     model = Apartment
     template_name = 'single_property.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PublicApartmentView, self).get_context_data()
+        a = Booking.objects.filter(user=self.request.user, apartment=self.object.pk)
+        context['status'] = True if a else False
+
+        return context
 
 
 class ContactView(CreateView):
