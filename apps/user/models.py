@@ -161,7 +161,7 @@ class OtpToken(models.Model):
             #     html_content=html_content
             # )
             # try:
-            #     sg = SendGridAPIClient('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')
+            #     sg = SendGridAPIClient('SG.9bO7bVWXThq0NQzoydh7yA.sfs-wGQ')
             #     response = sg.send(message)
             #     print(response.status_code)
             #     print(response.body)
